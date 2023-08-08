@@ -44,7 +44,7 @@ print(array[0]) //gives '1' as output
 ```swift 
 var Angela = 203874 
 ```
-- Angela is the label for 203874 is the data 
+- Angela is the label for 203874 data 
 ```swift 
 var a = 5 
 var b = 6 
@@ -149,6 +149,49 @@ func greeting2 (whoToGreet: String) {
 greeting2(whoToGreet: "Samhith")
 ```
 - kinda complex but sure you will get it bruh 
+## making timer 
+---
+```swift 
+import AVFoundation 
+```
+
+```swift
+timer = Timer()
+```
+
+```swift 
+timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false) // #selector includes updateUI , a @objc func , need to define it 
+```
+
+```swift
+@ objc func updateUI() {
+	//write function 
+}
+```
+## Internal and External parameters 
+```swift 
+  func checkAnswer(Answer userAnswer: String) {
+    //Answer is the external parameter
+    //userAnswer is used as internal parameter
+	//used to not get confused when using the function which has same variable name as the parameter there we       can just use "Answer" parameter
+    //print("userAnswer")
+```
+- if you dont want to give a external parameter at all 
+```swift 
+func checkAnswer(_ userAnswer: String) {
+//code 
+}
+```
+## functions with outputs and returns 
+- if we wanna produce an output we will provide a return arrow and the datatype its gonna return 
+```swift 
+func getMilk (Money: Int) -> Int {
+		let change = Money - 1
+		return change
+}
+
+var new_var = getmilk(4) //this is gonna give a value of 2 for the new_variable
+```
 # conditional Statements 
 ---
 ```swift 
@@ -271,5 +314,111 @@ Name.constant.append("samhith" : "Beeravelli")
 //when function created inside a structure , we call that a method 
 
 Name.new_shit() //will print("New Shit")
+```
+
+- Structures have methods (functions in side structures ) and properties (says whats the structures is like) 
+	-  properties are like , var colour = "red" for a car 
+	- methods are like , func move() { print("move forward")} 
+- when we making a structure we are making a blue print , then we need to initialize to make it an object
+- when we want to make more structures similar to the before , we use the old structures as blueprint then change that accordingly 
+```swift 
+struct Town {
+    let name: String
+    var citizen: [String]
+    var resources:[String : Int] //blank properties
+    
+    init(townName: String , people: [String] , stats: [String:Int]) {
+        name = townName
+        citizen = people
+        resources = stats
+    }
+    func fortify() {
+        print("defences Up")
+    }
+}
+
+var anotherTown = Town(townName: "anotherTown", people: ["Town hanks"], stats: ["coconuts" : 100])
+print(anotherTown.citizen)
+anotherTown.citizen.append("willson")
+anotherTown.fortify()
 
 ```
+## self 
+	- we cannot do the below code , it gives an error
+```swift 
+struct Town {
+    let name: String
+    var citizen: [String]
+    var resources:[String : Int] //blank properties
+    
+    init(name: String , citizen: [String] , resources: [String:Int]) {
+        name = name
+        citizen = citizen
+        resources = resources
+    }
+    func fortify() {
+        print("defences Up")
+    }
+}
+
+var anotherTown = Town(townName: "anotherTown", people: ["Town hanks"], stats: ["coconuts" : 100])
+print(anotherTown.citizen)
+anotherTown.citizen.append("willson")
+anotherTown.fortify()
+
+```
+- self keyword references to eventual object that will be created in the structure blueprint 
+```swift 
+
+struct Town {
+    let name: String
+    var citizen: [String]
+    var resources:[String : Int] //blank properties
+    
+    init(name: String , citizen: [String] , resources: [String:Int]) {
+        self.name = name //referring to the property "name" in the structure in line 3
+        self.citizen = citizen
+        self.resources = resources
+    }
+    func fortify() {
+        print("defences Up")
+    }
+}
+
+var anotherTown = Town(name: "anotherTown", citizen: ["Town hanks"], resources: ["coconuts" : 100])
+print(anotherTown.citizen)
+anotherTown.citizen.append("willson")
+anotherTown.fortify()
+
+```
+## immutability 
+- if there is a var in side the stuct , we cannot change its value in side the structure itself , cause it will be assigned to self keyword and self is a immutable character like let 
+- but we can do that outside the structure and also inside the structure using 
+```swift 
+struct another_structure {
+    var not_mutable = 100
+    mutating func imma_mutate_te() {
+    not_mutable = 1000}
+}
+
+var another = another_structure()
+
+another.imma_mutate_te()
+print(another.not_mutable) // prints 1000
+```
+>  **But the above mutating function wont work when you create an object using the let keyword**
+
+
+# design patterns 
+--- 
+- managing the complexity
+- need to come up with a org chart for our software to reduce the complexity 
+	- there are so many design patterns
+	- select based on the requirement 
+	- there are also based on the style 
+		- readable or smaller code
+## Model View Controller (MVC)
+> Model -> have data and the logic for the data 
+> View -> have the User Interface
+> Controller -> mediator  
+
